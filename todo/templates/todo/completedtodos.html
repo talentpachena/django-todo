@@ -1,0 +1,32 @@
+{% extends 'todo/base.html' %}
+
+{% block content %}
+<br>
+<br>
+    <h1 class="text-center">Completed Todos</h1>
+    <div>
+        <div>
+            {% if todos %}
+            <div>
+                <ul>
+                    {% for todo in todos %}
+                    <li>
+                        <a href="{% url 'viewtodo' todo.id %}">
+                            {% if todo.important %}<b>{% endif %}{{ todo.title }}{% if todo.important %}</b>{% endif %}
+                            {% if todo.memo %} - {{ todo.memo }}{% endif %}
+                            {{ todo.datecompleted| date:'M j Y H:i'}}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% else %} 
+            <div class="text-center">
+                <h2>Looks like you don't have any todos! Click button below to create new Todos</h2>
+                <br>
+                <a role="button" class="btn btn-primary" href="{% url 'createtodo' %}">New Todo</a>
+            </div>
+            {% endif %} 
+        </div>
+    </div>
+{% endblock %}
